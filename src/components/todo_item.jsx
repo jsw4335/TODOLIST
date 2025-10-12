@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "../styles/todo_item.css";
 export default function TodoItem({ todo, onDelete, onUpdate, onToggle }) {
     const [editing, setEditing] = useState(false);
     const [value, setValue] = useState(todo.title);
@@ -21,16 +21,19 @@ export default function TodoItem({ todo, onDelete, onUpdate, onToggle }) {
                     <input
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
+                        className="edit-input"
                     />
-                    <button className="confirm" onClick={handleUpdate}>
-                        완료
-                    </button>
-                    <button
-                        className="cancel"
-                        onClick={() => setEditing(false)}
-                    >
-                        취소
-                    </button>
+                    <div className="item-buttons">
+                        <button className="confirm" onClick={handleUpdate}>
+                            완료
+                        </button>
+                        <button
+                            className="cancel"
+                            onClick={() => setEditing(false)}
+                        >
+                            취소
+                        </button>
+                    </div>
                 </>
             ) : (
                 <>

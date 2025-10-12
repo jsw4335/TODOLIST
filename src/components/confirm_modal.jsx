@@ -1,3 +1,4 @@
+import "../styles/confirm_modal.css";
 export default function ConfirmModal({ onConfirm, onCancel }) {
     return (
         <div className="modal-backdrop">

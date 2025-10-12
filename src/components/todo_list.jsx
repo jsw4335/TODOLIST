@@ -1,5 +1,5 @@
 import TodoItem from "./todo_item";
-
+import "../styles/todo_list.css";
 export default function TodoList({ todos, onDelete, onUpdate, onToggle }) {
     const todoList = todos.filter((t) => !t.completed);
     const doneList = todos.filter((t) => t.completed);
