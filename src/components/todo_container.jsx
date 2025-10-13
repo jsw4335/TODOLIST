@@ -26,6 +26,16 @@ export default function TodoContainer() {
         };
         setTodos([...todos, newTodo]);
     };
+
+    //수정
+    const handleUpdate = (id, value) => {
+        setTodos(
+            todos.map((todo) =>
+                todo.id === id ? { ...todo, title: value } : todo
+            )
+        );
+    };
+
     //삭제 클릭 시: 모달만 띄우고 대상 id 저장
     const askDelete = (id) => {
         setTargetId(id);
@@ -45,11 +55,6 @@ export default function TodoContainer() {
         setTargetId(null);
     };
 
-    // const handleDelete = (id) => {
-    //     setTodos(todos.filter((todo) => todo.id !== id));
-    //     setShowModal(false);
-    // };
-
     const handleToggle = (id) => {
         setTodos(
             todos.map((todo) =>
@@ -65,7 +70,7 @@ export default function TodoContainer() {
                 todos={todos}
                 onDelete={askDelete}
                 onToggle={handleToggle}
-                onUpdate={() => {}}
+                onUpdate={handleUpdate}
             />
             {showModal && (
                 <ConfirmModal
