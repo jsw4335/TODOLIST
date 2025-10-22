@@ -4,6 +4,7 @@ import axios from "axios";
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_BASE_URL, // 서버 주소
 });
+console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
 
 // 모든 요청에 토큰 자동 추가
 // 요청이 서버로 보내지기 직전에 실행되는 함수
