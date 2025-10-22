@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import TodoContainer from "../components/todo_container";
+//팀페이지가 클릭되었을 때 팀페이지로 랜더링되게 import함
+// import TeamCreatePage from "../components/TeamCreatePage";
 
 export default function TodoPage() {
     //로그인 하지 않은 사용자가 /todo에 접근하면 자동으로

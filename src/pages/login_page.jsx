@@ -26,10 +26,23 @@ export default function LoginPage() {
                 localStorage.setItem("token", res.token); // 토큰 저장
                 navigate("/todo", { state: { userId: res.user_id } });
             } else {
-                alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+                alert(
+                    // DB에 없는 아이디를 입력할 경우에는 이 코드가 실행 되지 않음
+                    res.message || "아이디 또는 비밀번호가 올바르지 않습니다."
+                );
             }
         } catch (err) {
-            console.error("로그인 실패:", err);
+            // 400에러가 발생할 경우에는 프론트의 try 부분을 무조건 건너뛴다
+            console.error("catch 문 안으로 진입:", err);
+            if (
+                err.response &&
+                err.response.data &&
+                err.response.data.message
+            ) {
+                alert(err.response.data.message); // 백엔드에서 온 에러 메시지 표시
+            } else {
+                alert("로그인 중 알 수 없는 오류가 발생했습니다.");
+            }
         }
     };
 

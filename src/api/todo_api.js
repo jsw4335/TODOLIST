@@ -98,3 +98,16 @@ export const toggleComplete = async (userId, id) => {
     const res = await api.patch(`/users/${userId}/todos/${id}/complete`);
     return res.data;
 };
+
+// 팀 목록 조회
+export const getTeams = async (userId) => {
+    const res = await api.get(`/users/${userId}/team`);
+    return res.data;
+};
+
+// 팀 생성 API
+export const createTeam = async (team_name) => {
+    const userId = localStorage.getItem("userId"); // ✅ 로그인한 사용자 ID 불러오기
+    const res = await api.post(`/team/create`, { team_name, userId });
+    return res.data;
+};

@@ -1,16 +1,96 @@
-/* 사이드바 */
+/* 전체 사이드바 레이아웃 */
 .sidebar {
-    width: 265px;
-    border-right: 1px solid #e2e8f0;
+    width: 240px;
+    height: 100vh;
+    background-color: #f8f9fb;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 40px;
+    justify-content: space-between;
+    padding: 24px 16px;
+    border-right: 1px solid #e0e0e0;
+    font-family: "Pretendard", sans-serif;
 }
 
-.sidebar h3 {
-    font-weight: 700;
-    font-size: 16px;
-    color: #0f172a;
-    margin-bottom: 16px;
+/* 상단 버튼 영역 */
+.sidebar-top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* 일반 버튼 */
+.sidebar-btn {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sidebar-btn:hover {
+    background-color: #1e293b;
+    color: white;
+    border-color: #1e293b;
+}
+
+/* '팀 만들기' 버튼만 강조 */
+.create-team {
+    margin-top: 16px;
+    background-color: #f3f4f6;
+    font-weight: 500;
+}
+
+/* 하단 영역 */
+.sidebar-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* user ID 표시 */
+.user-id {
+    font-size: 14px;
+    color: #374151;
+}
+
+/* ... 버튼 및 로그아웃 토글 */
+.more-container {
+    position: relative;
+}
+
+.more-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #4b5563;
+    transition: 0.2s;
+}
+
+.more-btn:hover {
+    color: #1e293b;
+}
+
+/* 로그아웃 버튼 (토글로 나타남) */
+.logout-btn {
+    position: absolute;
+    right: 0;
+    bottom: 35px;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.logout-btn:hover {
+    background-color: #ef4444;
+    color: white;
+    border-color: #ef4444;
 }
