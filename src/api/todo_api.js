@@ -11,6 +11,7 @@ console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token"); //로그인 성공 시 localStorage에 저장해둔 JWT토큰을 가져온다
+        console.log("요청 헤더 확인:", token ? `Bearer ${token}` : "토큰 없음");
         if (token) {
             config.headers.Authorization = `Bearer ${token}`; // 헤더 요청에 JWT 추가
         }
