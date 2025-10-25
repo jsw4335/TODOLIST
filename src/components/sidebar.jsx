@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTeams } from "../api/todo_api";
+import { getTeams, logoutUser } from "../api/todo_api";
 import TeamCreateModal from "./team_create_modal";
 import "../styles/sidebar.css";
 
@@ -8,7 +8,9 @@ export default function Sidebar({ onSelect }) {
     const [teams, setTeams] = useState([]);
     const [showLogout, setShowLogout] = useState(false);
     const [showTeamModal, setShowTeamModal] = useState(false);
+
     const userId = localStorage.getItem("userId");
+    const loginId = localStorage.getItem("loginId"); // 로그아웃 부분에 띄워주기 위해 추가
     const navigate = useNavigate();
 
     const fetchTeams = async () => {
@@ -24,10 +26,24 @@ export default function Sidebar({ onSelect }) {
         fetchTeams();
     }, []);
 
-    const handleLogout = () => {
-        localStorage.clear();
-        alert("로그아웃되었습니다.");
-        navigate("/login");
+    // 로그아웃 함수 추가
+    const handleLogout = async () => {
+        try {
+            // 현재 보고 있는 페이지가 개인(0)인지 팀 페이지인지 구분
+            const lastViewPage = localStorage.getItem("lastViewPage") || 0;
+
+            const res = await logoutUser(userId, lastViewPage);
+            alert(res.message);
+
+            // 로컬 데이터 정리
+            localStorage.clear();
+
+            // 로그인 페이지로 이동
+            navigate("/login");
+        } catch (error) {
+            console.error("로그아웃 오류:", error);
+            alert("로그아웃 중 문제가 발생했습니다.");
+        }
     };
 
     return (
@@ -59,7 +75,7 @@ export default function Sidebar({ onSelect }) {
             </div>
 
             <div className="sidebar-bottom">
-                <span className="user-id">{userId && `ID: ${userId}`}</span>
+                <span className="login-id">{loginId && `ID: ${loginId}`}</span>
                 <div className="more-container">
                     <button
                         className="more-btn"

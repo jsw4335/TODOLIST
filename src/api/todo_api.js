@@ -61,6 +61,15 @@ export const loginUser = async (login_id, password) => {
     return res.data;
 };
 
+// 로그아웃 API
+export const logoutUser = async (userId, lastViewPage) => {
+    const res = await api.post(`/user/logout`, {
+        userId,
+        lastViewPage,
+    });
+    return res.data;
+};
+
 //할 일 목록 조회(모든  api가 작동할때 전부다 적용이 되어야 함)
 export const getTodos = async (userId) => {
     const res = await api.get(`/users/${userId}/todos`);
@@ -109,5 +118,52 @@ export const getTeams = async (userId) => {
 export const createTeam = async (team_name) => {
     const userId = localStorage.getItem("userId"); // ✅ 로그인한 사용자 ID 불러오기
     const res = await api.post(`/team/create`, { team_name, userId });
+    return res.data;
+};
+
+// 팀 할 일 전체 조회
+export const getTeamTodos = async (teamId) => {
+    const res = await api.get(`/teams/${teamId}/todos`);
+    const data = res.data;
+
+    // 배열인지 확인 후 변환(비어있을때)
+    if (!Array.isArray(data)) {
+        console.error("Unexpected data format:", data);
+        return [];
+    }
+    return res.data.map((t) => ({
+        id: t.id,
+        title: t.todoContent,
+        completed: !!t.todoCompleted,
+    }));
+};
+
+// 팀 할 일 추가
+export const addTeamTodo = async (teamId, todoContent) => {
+    const res = await api.post(`/teams/${teamId}/todos`, { todoContent });
+    return res.data;
+};
+
+// 팀 할 일 수정
+export const updateTeamTodo = async (teamId, id, todoContent) => {
+    const res = await api.put(`/teams/${teamId}/todos/${id}`, { todoContent });
+    return res.data;
+};
+
+// 팀 할 일 삭제
+export const deleteTeamTodo = async (teamId, id) => {
+    const res = await api.delete(`/teams/${teamId}/todos/${id}`);
+    return res.data;
+};
+
+// 팀 할 일 완료 토글
+export const toggleTeamTodo = async (teamId, id) => {
+    const res = await api.patch(`/teams/${teamId}/todos/${id}/complete`);
+    return res.data;
+};
+
+// 팀 삭제
+export const deleteTeam = async (teamId) => {
+    const res = await api.delete(`/teams/${teamId}`);
     return res.data;
 };
