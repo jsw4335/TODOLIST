@@ -42,19 +42,11 @@
     background-color: #1a2233;
 }
 
-.login-btn {
-    width: 280px;
-    height: 40px;
-    margin-top: 10px;
-    border: 1px solid #0d1321;
-    border-radius: 6px;
-    background-color: #ffffff;
-    color: #0d1321;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
+.error-text {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
 }
-
-.login-btn:hover {
-    background-color: #f7f7f7;
+.input-error {
+    border: 1px solid red; /* ✅ 비밀번호 불일치 시 테두리 강조 */
 }
