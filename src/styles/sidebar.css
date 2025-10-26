@@ -1,8 +1,8 @@
-/* 전체 사이드바 레이아웃 */
+/* 🎯 전체 사이드바 */
 .sidebar {
     width: 240px;
     height: 100vh;
-    background-color: #f8f9fb;
+    background: #f8f9fb;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -11,72 +11,108 @@
     font-family: "Pretendard", sans-serif;
 }
 
-/* 상단 버튼 영역 */
+/* 🔝 상단 버튼 그룹 */
 .sidebar-top {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
 }
 
-/* 일반 버튼 */
+/* 📦 공통 버튼 스타일 (개인 / 팀 / 팀 만들기) */
 .sidebar-btn {
-    background-color: white;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    padding: 10px 12px;
-    text-align: left;
-    font-size: 15px;
+    width: 100%;
+    height: 48px;
+    background: #e2e8f0;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    font: 700 15px/150% "Pretendard", sans-serif;
+    color: #1c1c1c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: background 0.2s;
 }
 
 .sidebar-btn:hover {
-    background-color: #1e293b;
-    color: white;
-    border-color: #1e293b;
+    background: #dce3ed;
 }
 
-/* '팀 만들기' 버튼만 강조 */
+/* 🧱 팀 만들기 버튼 — 공통에서 변경되는 부분만 */
 .create-team {
-    margin-top: 16px;
-    background-color: #f3f4f6;
-    font-weight: 500;
+    height: 50px;
+    background: #fff; /* ✅ 중복 제거 후 최종값만 남김 */
+    text-align: center;
+    margin-top: 12px;
 }
 
-.team-item-container {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
-}
-
+/* ⋯ 버튼 */
 .team-more-btn {
     background: none;
     border: none;
-    cursor: pointer;
     font-size: 18px;
-    color: #888;
+    color: #0f172a;
+    cursor: pointer;
     transition: 0.2s;
 }
 
 .team-more-btn:hover {
-    color: #000;
+    color: #1c1c1c;
 }
 
-/* 하단 영역 */
+/* 📋 드롭다운 메뉴 */
+.more-wrapper {
+    position: relative; /* ✅ 위치 기준 */
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 8px;
+    transform: translateY(6px);
+    width: 155px;
+    height: 86px;
+    background: #fff;
+    border: 1px solid #000;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    z-index: 100;
+}
+
+.dropdown-menu p {
+    margin: 0;
+    padding: 6px 0;
+    width: 100%;
+    text-align: center;
+    font: 500 15px/100% "Pretendard", sans-serif;
+    color: #0f172a;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.dropdown-menu p:hover {
+    background: #f3f4f6;
+}
+
+/* 👤 하단 영역 */
 .sidebar-bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-/* user ID 표시 */
 .login-id {
     font-size: 14px;
     color: #374151;
 }
 
-/* ... 버튼 및 로그아웃 토글 */
+/* 로그아웃 메뉴 */
 .more-container {
     position: relative;
 }
@@ -85,8 +121,8 @@
     background: none;
     border: none;
     font-size: 20px;
-    cursor: pointer;
     color: #4b5563;
+    cursor: pointer;
     transition: 0.2s;
 }
 
@@ -94,12 +130,11 @@
     color: #1e293b;
 }
 
-/* 로그아웃 버튼 (토글로 나타남) */
 .logout-btn {
     position: absolute;
     right: 0;
     bottom: 35px;
-    background-color: white;
+    background: #fff;
     border: 1px solid #d1d5db;
     border-radius: 4px;
     padding: 6px 12px;
@@ -110,7 +145,7 @@
 }
 
 .logout-btn:hover {
-    background-color: #ef4444;
-    color: white;
+    background: #ef4444;
+    color: #fff;
     border-color: #ef4444;
 }

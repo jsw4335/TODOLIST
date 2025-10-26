@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTeams, logoutUser } from "../api/todo_api";
-import TeamCreateModal from "./team_create_modal";
+import TeamCreateModal from "./team_create_modal"; // 팀 생성용
+import TeamDeleteModal from "./team_delete_modal"; // 팀 삭제용
+import TeamManageModal from "./team_manage_modal"; // 팀원 관리용
+
 import "../styles/sidebar.css";
 
 export default function Sidebar({ onSelect }) {
     const [teams, setTeams] = useState([]);
     const [showLogout, setShowLogout] = useState(false);
-    const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
-    const [selectedTeamId, setSelectedTeamId] = useState(null); // ✅ 팀원 관리용 모달
+    const [showCreateTeamModal, setShowCreateTeamModal] = useState(false); // 팀 생성 모달
+    const [selectedTeamId, setSelectedTeamId] = useState(null); // 팀 관리용 id
+    const [showMenuId, setShowMenuId] = useState(null); // 현재 열린 메뉴 추적
+    const [showManageModal, setShowManageModal] = useState(false); // 팀원 초대 모달
+    const [showDeleteModal, setShowDeleteModal] = useState(false); // 팀 삭제 모달
+    const [teamToDelete, setTeamToDelete] = useState(null); // 추가
 
     const userId = localStorage.getItem("userId");
     const loginId = localStorage.getItem("loginId"); // 로그아웃 부분에 띄워주기 위해 추가
@@ -31,7 +38,7 @@ export default function Sidebar({ onSelect }) {
     const handleLogout = async () => {
         try {
             // 현재 보고 있는 페이지가 개인(0)인지 팀 페이지인지 구분
-            const lastViewPage = localStorage.getItem("lastViewPage") || 0;
+            const lastViewPage = localStorage.getItem("lastViewPage") || null;
 
             const res = await logoutUser(userId, lastViewPage);
             alert(res.message);
@@ -47,6 +54,25 @@ export default function Sidebar({ onSelect }) {
         }
     };
 
+    // ... 버튼 클릭 시 메뉴 열기/닫기
+    const toggleMenu = (teamId) => {
+        setShowMenuId(showMenuId === teamId ? null : teamId);
+    };
+
+    // 초대하기 클릭 시 모달 열기
+    const handleInvite = (teamId) => {
+        setSelectedTeamId(teamId);
+        setShowManageModal(true);
+        setShowMenuId(null);
+    };
+
+    // 삭제하기 버튼 클릭 시 모달 열기
+    const handleDeleteClick = (teamId) => {
+        setTeamToDelete(teamId);
+        setShowDeleteModal(true);
+        setShowMenuId(null);
+    };
+
     return (
         <div className="sidebar">
             <div className="sidebar-top">
@@ -57,25 +83,54 @@ export default function Sidebar({ onSelect }) {
                     개인 할 일 목록
                 </button>
 
-                {/* 팀 목록 */}
                 {teams.map((team) => (
                     <div key={team.team_id} className="team-item-container">
                         <button
-                            className="sidebar-btn"
+                            className="sidebar-btn team-btn"
                             onClick={() => onSelect(`team-${team.team_id}`)}
                         >
-                            {team.team_name}
-                        </button>
-                        {/* ✅ 팀원 관리 버튼 추가 */}
-                        <button
-                            className="team-more-btn"
-                            onClick={() => setSelectedTeamId(team.team_id)}
-                        >
-                            ...
+                            <span>{team.team_name}</span>
+
+                            {/* ✅ ...버튼과 드롭다운을 relative로 감싸줌 */}
+                            <div
+                                className="more-wrapper"
+                                style={{ position: "relative" }}
+                            >
+                                <button
+                                    className="team-more-btn"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleMenu(team.team_id);
+                                    }}
+                                >
+                                    ...
+                                </button>
+
+                                {/* ✅ 드롭다운 메뉴 */}
+                                {showMenuId === team.team_id && (
+                                    <div className="dropdown-menu">
+                                        <p
+                                            onClick={() =>
+                                                handleInvite(team.team_id)
+                                            }
+                                        >
+                                            초대하기
+                                        </p>
+                                        <p
+                                            onClick={() =>
+                                                handleDeleteClick(team.team_id)
+                                            }
+                                        >
+                                            삭제하기
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
                         </button>
                     </div>
                 ))}
 
+                {/* ✅ 팀 만들기 버튼 */}
                 <button
                     className="sidebar-btn create-team"
                     onClick={() => setShowCreateTeamModal(true)}
@@ -109,11 +164,20 @@ export default function Sidebar({ onSelect }) {
                 />
             )}
 
-            {/* ✅ 팀원 관리 모달 */}
-            {selectedTeamId && (
-                <TeamCreateModal
+            {/* ✅ 초대 모달 */}
+            {showManageModal && (
+                <TeamManageModal
                     teamId={selectedTeamId}
-                    onClose={() => setSelectedTeamId(null)}
+                    onClose={() => setShowManageModal(false)}
+                />
+            )}
+
+            {/* ✅ 팀 삭제 모달 */}
+            {showDeleteModal && (
+                <TeamDeleteModal
+                    teamId={teamToDelete}
+                    onClose={() => setShowDeleteModal(false)}
+                    onDeleted={fetchTeams} // ✅ 삭제 후 목록 새로고침
                 />
             )}
         </div>
