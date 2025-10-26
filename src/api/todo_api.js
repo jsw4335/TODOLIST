@@ -162,6 +162,26 @@ export const toggleTeamTodo = async (teamId, id) => {
     return res.data;
 };
 
+// 팀원 목록 불러오기
+export const getTeamMembers = async (teamId) => {
+    const res = await api.get(`/team/${teamId}`);
+    return res.data;
+};
+
+// 팀원 초대
+export const inviteTeamMember = async (teamId, loginId) => {
+    const res = await api.post(`/team/${teamId}/invite`, { loginId });
+    return res.data;
+};
+
+// 팀원 삭제
+export const deleteTeamMember = async (teamId, userId) => {
+    const res = await api.delete(`/team/${teamId}/delete`, {
+        data: { userId },
+    });
+    return res.data;
+};
+
 // 팀 삭제
 export const deleteTeam = async (teamId) => {
     const res = await api.delete(`/teams/${teamId}`);

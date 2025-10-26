@@ -7,7 +7,8 @@ import "../styles/sidebar.css";
 export default function Sidebar({ onSelect }) {
     const [teams, setTeams] = useState([]);
     const [showLogout, setShowLogout] = useState(false);
-    const [showTeamModal, setShowTeamModal] = useState(false);
+    const [showCreateTeamModal, setShowCreateTeamModal] = useState(false);
+    const [selectedTeamId, setSelectedTeamId] = useState(null); // ✅ 팀원 관리용 모달
 
     const userId = localStorage.getItem("userId");
     const loginId = localStorage.getItem("loginId"); // 로그아웃 부분에 띄워주기 위해 추가
@@ -56,19 +57,28 @@ export default function Sidebar({ onSelect }) {
                     개인 할 일 목록
                 </button>
 
+                {/* 팀 목록 */}
                 {teams.map((team) => (
-                    <button
-                        key={team.id}
-                        className="sidebar-btn"
-                        onClick={() => onSelect(`team-${team.id}`)}
-                    >
-                        {team.team_name}의 할 일 목록
-                    </button>
+                    <div key={team.id} className="team-item-container">
+                        <button
+                            className="sidebar-btn"
+                            onClick={() => onSelect(`team-${team.id}`)}
+                        >
+                            {team.team_name}의 할 일 목록
+                        </button>
+                        {/* ✅ 팀원 관리 버튼 추가 */}
+                        <button
+                            className="team-more-btn"
+                            onClick={() => setSelectedTeamId(team.id)}
+                        >
+                            ...
+                        </button>
+                    </div>
                 ))}
 
                 <button
                     className="sidebar-btn create-team"
-                    onClick={() => setShowTeamModal(true)}
+                    onClick={() => setShowCreateTeamModal(true)}
                 >
                     팀 만들기
                 </button>
@@ -91,10 +101,19 @@ export default function Sidebar({ onSelect }) {
                 </div>
             </div>
 
-            {showTeamModal && (
+            {/* ✅ 팀 생성 모달 */}
+            {showCreateTeamModal && (
                 <TeamCreateModal
-                    onClose={() => setShowTeamModal(false)}
+                    onClose={() => setShowCreateTeamModal(false)}
                     onTeamCreated={fetchTeams}
+                />
+            )}
+
+            {/* ✅ 팀원 관리 모달 */}
+            {selectedTeamId && (
+                <TeamCreateModal
+                    teamId={selectedTeamId}
+                    onClose={() => setSelectedTeamId(null)}
                 />
             )}
         </div>

@@ -43,6 +43,26 @@
     font-weight: 500;
 }
 
+.team-item-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 8px;
+}
+
+.team-more-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    color: #888;
+    transition: 0.2s;
+}
+
+.team-more-btn:hover {
+    color: #000;
+}
+
 /* 하단 영역 */
 .sidebar-bottom {
     display: flex;
