@@ -59,17 +59,17 @@ export default function Sidebar({ onSelect }) {
 
                 {/* 팀 목록 */}
                 {teams.map((team) => (
-                    <div key={team.id} className="team-item-container">
+                    <div key={team.team_id} className="team-item-container">
                         <button
                             className="sidebar-btn"
-                            onClick={() => onSelect(`team-${team.id}`)}
+                            onClick={() => onSelect(`team-${team.team_id}`)}
                         >
-                            {team.team_name}의 할 일 목록
+                            {team.team_name}
                         </button>
                         {/* ✅ 팀원 관리 버튼 추가 */}
                         <button
                             className="team-more-btn"
-                            onClick={() => setSelectedTeamId(team.id)}
+                            onClick={() => setSelectedTeamId(team.team_id)}
                         >
                             ...
                         </button>
