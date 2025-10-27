@@ -25,7 +25,7 @@ export default function LoginPage() {
                 localStorage.setItem("userId", res.user_id); // 로컬에 저장
                 localStorage.setItem("loginId", res.login_id); // 로그아웃 부분에 회원 정보 보여주기 위해사용
                 localStorage.setItem("token", res.token); // 토큰 저장
-                localStorage.setItem("lastViewPage", res.lastViewPage || 0); //없으면 개인페이지로 감
+                localStorage.setItem("lastViewPage", res.lastViewPage); //없으면 개인페이지로 감
                 navigate("/todo", { state: { userId: res.user_id } });
             } else {
                 alert(

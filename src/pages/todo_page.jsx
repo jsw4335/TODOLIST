@@ -36,8 +36,9 @@ export default function TodoPage() {
 
     return (
         <div className="todo-page">
-            <Sidebar onSelect={handleSelect} />
+            <Sidebar onSelect={handleSelect} setTeamId={setTeamId} />
             <TodoContainer userId={userId} teamId={teamId} />
+            {/* 위의 부분에서 전달 인자 수정 setTeamId={setTeamId}*/}
         </div>
     );
 }

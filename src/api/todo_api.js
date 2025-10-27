@@ -4,7 +4,7 @@ import axios from "axios";
 const api = axios.create({
     baseURL: process.env.REACT_APP_API_BASE_URL, // 서버 주소
 });
-console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
+// console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
 
 // 모든 요청에 토큰 자동 추가
 // 요청이 서버로 보내지기 직전에 실행되는 함수
@@ -25,23 +25,23 @@ api.interceptors.request.use(
 );
 
 // 401 또는 403 발생 시 자동 로그아웃
-api.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (
-            error.response &&
-            (error.response.status === 401 || error.response.status === 403)
-        ) {
-            alert(
-                "로그인이 만료되었거나 유효하지 않습니다. 다시 로그인해주세요."
-            );
-            localStorage.removeItem("token");
-            localStorage.removeItem("userId");
-            window.location.href = "/login";
-        }
-        return Promise.reject(error);
-    }
-);
+// api.interceptors.response.use(
+//     (response) => response,
+//     (error) => {
+//         if (
+//             error.response &&
+//             (error.response.status === 401 || error.response.status === 403)
+//         ) {
+//             alert(
+//                 "로그인이 만료되었거나 유효하지 않습니다. 다시 로그인해주세요."
+//             );
+//             localStorage.removeItem("token");
+//             localStorage.removeItem("userId");
+//             window.location.href = "/login";
+//         }
+//         return Promise.reject(error);
+//     }
+// );
 
 // 회원가입 api
 export const joinUser = async (login_id, password) => {
@@ -63,6 +63,7 @@ export const loginUser = async (login_id, password) => {
 
 // 로그아웃 API
 export const logoutUser = async (userId, lastViewPage) => {
+    console.log(lastViewPage);
     const res = await api.post(`/user/logout`, {
         userId,
         lastViewPage,

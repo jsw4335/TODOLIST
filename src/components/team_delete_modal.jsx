@@ -7,8 +7,9 @@ export default function TeamDeleteModal({ teamId, onClose, onDeleted }) {
         try {
             await deleteTeam(teamId);
             alert("팀이 삭제되었습니다.");
-            onDeleted(); // ✅ Sidebar로 알려서 팀 목록 갱신
-            onClose(); // ✅ 모달 닫기
+            //onDeleted(); // Sidebar로 알려서 팀 목록 갱신
+            if (onDeleted) await onDeleted();
+            if (onClose) onClose(); // 모달 닫기
         } catch (err) {
             console.error("팀 삭제 실패:", err);
             alert("팀 삭제 중 오류가 발생했습니다.");

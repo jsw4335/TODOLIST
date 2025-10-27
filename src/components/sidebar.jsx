@@ -7,7 +7,7 @@ import TeamManageModal from "./team_manage_modal"; // 팀원 관리용
 
 import "../styles/sidebar.css";
 
-export default function Sidebar({ onSelect }) {
+export default function Sidebar({ onSelect, setTeamId }) {
     const [teams, setTeams] = useState([]);
     const [showLogout, setShowLogout] = useState(false);
     const [showCreateTeamModal, setShowCreateTeamModal] = useState(false); // 팀 생성 모달
@@ -85,21 +85,21 @@ export default function Sidebar({ onSelect }) {
 
                 {teams.map((team) => (
                     <div key={team.team_id} className="team-item-container">
-                        <button
+                        {/* ✅ 바깥쪽을 div로 변경 */}
+                        <div
                             className="sidebar-btn team-btn"
                             onClick={() => onSelect(`team-${team.team_id}`)}
+                            role="button"
+                            tabIndex={0}
                         >
                             <span>{team.team_name}</span>
 
-                            {/* ✅ ...버튼과 드롭다운을 relative로 감싸줌 */}
-                            <div
-                                className="more-wrapper"
-                                style={{ position: "relative" }}
-                            >
+                            {/* ✅ ... 버튼을 별도 wrapper로 분리 (중첩 button 제거) */}
+                            <div className="more-wrapper">
                                 <button
                                     className="team-more-btn"
                                     onClick={(e) => {
-                                        e.stopPropagation();
+                                        e.stopPropagation(); // 부모 div 클릭 방지
                                         toggleMenu(team.team_id);
                                     }}
                                 >
@@ -126,7 +126,7 @@ export default function Sidebar({ onSelect }) {
                                     </div>
                                 )}
                             </div>
-                        </button>
+                        </div>
                     </div>
                 ))}
 
@@ -173,11 +173,28 @@ export default function Sidebar({ onSelect }) {
             )}
 
             {/* ✅ 팀 삭제 모달 */}
-            {showDeleteModal && (
+            {/* {showDeleteModal && (
                 <TeamDeleteModal
                     teamId={teamToDelete}
                     onClose={() => setShowDeleteModal(false)}
                     onDeleted={fetchTeams} // ✅ 삭제 후 목록 새로고침
+                />
+            )} */}
+            {showDeleteModal && (
+                <TeamDeleteModal
+                    teamId={teamToDelete}
+                    onClose={() => setShowDeleteModal(false)}
+                    onDeleted={async () => {
+                        // ✅ 1. 즉시 개인 페이지로 전환
+                        setTeamId(0);
+                        localStorage.setItem("lastViewPage", 0);
+
+                        // ✅ 2. 잠깐 대기 후 팀 목록 새로고침 (렌더 순서 안정화)
+                        await new Promise((resolve) =>
+                            setTimeout(resolve, 100)
+                        );
+                        await fetchTeams();
+                    }}
                 />
             )}
         </div>

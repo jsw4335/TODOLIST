@@ -149,3 +149,13 @@
     color: #fff;
     border-color: #ef4444;
 }
+
+/* 팀 버튼(div로 대체된 요소)의 레이아웃 보정 */
+.team-btn {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+}
