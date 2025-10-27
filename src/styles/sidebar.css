@@ -2,7 +2,7 @@
 .sidebar {
     width: 240px;
     height: 100vh;
-    background: #f8f9fb;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -37,6 +37,10 @@
 
 .sidebar-btn:hover {
     background: #dce3ed;
+}
+
+.sidebar-btn.create-team {
+    justify-content: center;
 }
 
 /* 🧱 팀 만들기 버튼 — 공통에서 변경되는 부분만 */

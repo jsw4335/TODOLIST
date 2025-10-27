@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/sidebar";
 import TodoContainer from "../components/todo_container";
-
+import "../styles/todo_page.css"; //임시로 추가
 //팀페이지가 클릭되었을 때 팀페이지로 랜더링되게 import함
 // import TeamCreatePage from "../components/TeamCreatePage";
 

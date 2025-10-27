@@ -94,7 +94,7 @@ export default function Sidebar({ onSelect, setTeamId }) {
                         >
                             <span>{team.team_name}</span>
 
-                            {/* ✅ ... 버튼을 별도 wrapper로 분리 (중첩 button 제거) */}
+                            {/* ... 버튼을 별도 wrapper로 분리 (중첩 button 제거) */}
                             <div className="more-wrapper">
                                 <button
                                     className="team-more-btn"
@@ -106,7 +106,7 @@ export default function Sidebar({ onSelect, setTeamId }) {
                                     ...
                                 </button>
 
-                                {/* ✅ 드롭다운 메뉴 */}
+                                {/* 드롭다운 메뉴 */}
                                 {showMenuId === team.team_id && (
                                     <div className="dropdown-menu">
                                         <p
@@ -130,7 +130,7 @@ export default function Sidebar({ onSelect, setTeamId }) {
                     </div>
                 ))}
 
-                {/* ✅ 팀 만들기 버튼 */}
+                {/* 팀 만들기 버튼 */}
                 <button
                     className="sidebar-btn create-team"
                     onClick={() => setShowCreateTeamModal(true)}
@@ -156,7 +156,7 @@ export default function Sidebar({ onSelect, setTeamId }) {
                 </div>
             </div>
 
-            {/* ✅ 팀 생성 모달 */}
+            {/* 팀 생성 모달 */}
             {showCreateTeamModal && (
                 <TeamCreateModal
                     onClose={() => setShowCreateTeamModal(false)}
@@ -164,7 +164,7 @@ export default function Sidebar({ onSelect, setTeamId }) {
                 />
             )}
 
-            {/* ✅ 초대 모달 */}
+            {/* 초대 모달 */}
             {showManageModal && (
                 <TeamManageModal
                     teamId={selectedTeamId}
@@ -172,24 +172,17 @@ export default function Sidebar({ onSelect, setTeamId }) {
                 />
             )}
 
-            {/* ✅ 팀 삭제 모달 */}
-            {/* {showDeleteModal && (
-                <TeamDeleteModal
-                    teamId={teamToDelete}
-                    onClose={() => setShowDeleteModal(false)}
-                    onDeleted={fetchTeams} // ✅ 삭제 후 목록 새로고침
-                />
-            )} */}
+            {/* 팀 삭제 모달 */}
             {showDeleteModal && (
                 <TeamDeleteModal
                     teamId={teamToDelete}
                     onClose={() => setShowDeleteModal(false)}
                     onDeleted={async () => {
-                        // ✅ 1. 즉시 개인 페이지로 전환
+                        // 1. 즉시 개인 페이지로 전환
                         setTeamId(0);
                         localStorage.setItem("lastViewPage", 0);
 
-                        // ✅ 2. 잠깐 대기 후 팀 목록 새로고침 (렌더 순서 안정화)
+                        // 2. 잠깐 대기 후 팀 목록 새로고침 (렌더 순서 안정화)
                         await new Promise((resolve) =>
                             setTimeout(resolve, 100)
                         );
