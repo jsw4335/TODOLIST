@@ -46,7 +46,7 @@
 /* 🧱 팀 만들기 버튼 — 공통에서 변경되는 부분만 */
 .create-team {
     height: 50px;
-    background: #fff; /* ✅ 중복 제거 후 최종값만 남김 */
+    background: #fff; /* 중복 제거 후 최종값만 남김 */
     text-align: center;
     margin-top: 12px;
 }
@@ -65,9 +65,9 @@
     color: #1c1c1c;
 }
 
-/* 📋 드롭다운 메뉴 */
+/* 드롭다운 메뉴 */
 .more-wrapper {
-    position: relative; /* ✅ 위치 기준 */
+    position: relative; /* 위치 기준 */
 }
 
 .dropdown-menu {
@@ -104,7 +104,7 @@
     background: #f3f4f6;
 }
 
-/* 👤 하단 영역 */
+/* 하단 영역 */
 .sidebar-bottom {
     display: flex;
     align-items: center;

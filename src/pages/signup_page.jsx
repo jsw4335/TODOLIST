@@ -7,8 +7,8 @@ import { joinUser } from "../api/todo_api";
 export default function SignupPage() {
     const [login_id, setLoginId] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState(""); // ✅ 추가
-    const [error, setError] = useState(""); // ✅ 추가 (에러 메시지)
+    const [confirmPassword, setConfirmPassword] = useState(""); // 추가
+    const [error, setError] = useState(""); // 추가 (에러 메시지)
     const navigate = useNavigate();
 
     const handleSignup = async () => {
@@ -17,7 +17,7 @@ export default function SignupPage() {
             return;
         }
         if (password !== confirmPassword) {
-            setError("비밀번호가 일치하지 않습니다."); // ✅ 추가
+            setError("비밀번호가 일치하지 않습니다."); // 추가
             return;
         }
 
@@ -64,8 +64,7 @@ export default function SignupPage() {
                         : ""
                 }`}
             />
-            {error && <p className="error-text">{error}</p>}{" "}
-            {/* ✅ 에러 표시 */}
+            {error && <p className="error-text">{error}</p>} {/* 에러 표시 */}
             <button onClick={handleSignup} className="signup-btn">
                 회원가입
             </button>

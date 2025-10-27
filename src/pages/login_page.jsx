@@ -64,7 +64,7 @@ export default function LoginPage() {
                     setUserId(e.target.value);
                     if (errorMsg) setErrorMsg("");
                 }}
-                className={`login-input ${errorMsg ? "input-error" : ""}`} // ✅ 에러 시 테두리 빨강
+                className={`login-input ${errorMsg ? "input-error" : ""}`} // 에러 시 테두리 빨강
             />
             <input
                 type="password"
@@ -74,7 +74,7 @@ export default function LoginPage() {
                     setPassword(e.target.value);
                     if (errorMsg) setErrorMsg("");
                 }}
-                className={`login-input ${errorMsg ? "input-error" : ""}`} // ✅ 에러 시 테두리 빨강
+                className={`login-input ${errorMsg ? "input-error" : ""}`} // 에러 시 테두리 빨강
             />
             {errorMsg && <p className="error-text">{errorMsg}</p>}
             <button onClick={handleLogin} className="login-btn">

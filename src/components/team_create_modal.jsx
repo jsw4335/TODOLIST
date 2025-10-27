@@ -10,7 +10,7 @@ export default function TeamCreateModal({ onClose, onTeamCreated }) {
             const userId = localStorage.getItem("userId");
             const res = await createTeam(teamName, userId);
             alert(res.message);
-            onTeamCreated?.(); // ✅ 새로고침용 콜백
+            onTeamCreated?.(); // 새로고침용 콜백
             onClose();
         } catch (err) {
             console.error(err);

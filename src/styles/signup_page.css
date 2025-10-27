@@ -18,13 +18,13 @@
 
 /* 입력창 */
 .signup-input {
-    width: 320px; /* ✅ 폭 통일 */
-    height: 48px; /* ✅ 높이 통일 */
+    width: 320px; /* 폭 통일 */
+    height: 48px; /* 높이 통일 */
     border: 1px solid #dcdcdc;
-    border-radius: 8px; /* ✅ radius 통일 */
+    border-radius: 8px; /* radius 통일 */
     padding: 0 12px;
-    margin-bottom: 8px; /* ✅ 여백 통일 */
-    font-size: 15px; /* ✅ 폰트 통일 */
+    margin-bottom: 8px; /* 여백 통일 */
+    font-size: 15px; /* 폰트 통일 */
     font-weight: 600;
     color: #1c1c1c;
     box-sizing: border-box;
@@ -36,10 +36,10 @@
     height: 48px; /* 높이 통일 */
     margin-top: 0px; /*여백 통일 */
     border: none;
-    border-radius: 8px; /* ✅ radius 통일 */
-    background-color: #0d1321; /* ✅ 진한 배경 */
+    border-radius: 8px; /* radius 통일 */
+    background-color: #0d1321; /* 진한 배경 */
     color: #ffffff;
-    font-size: 15px; /* ✅ 폰트 통일 */
+    font-size: 15px; /* 폰트 통일 */
     font-weight: 600;
     cursor: pointer;
     box-sizing: border-box;
