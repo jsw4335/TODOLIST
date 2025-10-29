@@ -50,7 +50,7 @@ export default function TeamCreateModal({ teamId, onClose }) {
                 {/* 변경됨: 모달 박스 */}
                 <h3>팀원 관리</h3> {/* h2 → h3로 변경 (공통 스타일에 맞춤) */}
                 <div className="member-list">
-                    {members.length === 0 ? ( // ✅ 변경됨: 빈 목록 처리 추가
+                    {members.length === 0 ? (
                         <p>아직 팀원이 없습니다.</p>
                     ) : (
                         members.map((m) => (

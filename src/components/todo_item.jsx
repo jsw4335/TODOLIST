@@ -42,12 +42,14 @@ export default function TodoItem({ todo, onDelete, onUpdate, onToggle }) {
                 <>
                     <span>{todo.title}</span>
                     <div className="item-buttons">
-                        <button
-                            className="edit"
-                            onClick={() => setEditing(true)}
-                        >
-                            수정
-                        </button>
+                        {!todo.completed && (
+                            <button
+                                className="edit"
+                                onClick={() => setEditing(true)}
+                            >
+                                수정
+                            </button>
+                        )}
                         <button
                             className="delete"
                             onClick={() => onDelete(todo.id)}

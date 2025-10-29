@@ -7,8 +7,8 @@ export default function TeamCreateModal({ onClose, onTeamCreated }) {
 
     const handleCreate = async () => {
         try {
-            const userId = localStorage.getItem("userId");
-            const res = await createTeam(teamName, userId);
+            // const userId = localStorage.getItem("userId");
+            const res = await createTeam(teamName);
             alert(res.message);
             onTeamCreated?.(); // 새로고침용 콜백
             onClose();

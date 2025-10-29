@@ -85,16 +85,14 @@ export default function Sidebar({ onSelect, setTeamId }) {
 
                 {teams.map((team) => (
                     <div key={team.team_id} className="team-item-container">
-                        {/* ✅ 바깥쪽을 div로 변경 */}
                         <div
                             className="sidebar-btn team-btn"
                             onClick={() => onSelect(`team-${team.team_id}`)}
                             role="button"
                             tabIndex={0}
                         >
-                            <span>{team.team_name}</span>
+                            <span>{`팀 ${team.team_name} 의 할일 목록`}</span>
 
-                            {/* ... 버튼을 별도 wrapper로 분리 (중첩 button 제거) */}
                             <div className="more-wrapper">
                                 <button
                                     className="team-more-btn"
