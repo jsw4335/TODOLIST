@@ -11,12 +11,14 @@ export default function TodoItem({ todo, onDelete, onUpdate, onToggle }) {
     };
 
     return (
-        <div className="todo-item">
-            <input
-                type="checkbox"
-                checked={todo.completed}
-                onChange={() => onToggle(todo.id)}
-            />
+        <div className={`todo-item ${editing ? "editing" : ""}`}>
+            {!editing && (
+                <input
+                    type="checkbox"
+                    checked={todo.completed}
+                    onChange={() => onToggle(todo.id)}
+                />
+            )}
             {editing ? (
                 <>
                     <input
