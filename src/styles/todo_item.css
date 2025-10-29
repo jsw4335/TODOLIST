@@ -44,28 +44,42 @@
 
 /* 수정 / 완료 버튼 (gray-outline) */
 .item-buttons button.edit,
-.item-buttons button.confirm {
+.item-buttons button.cancel {
     width: 80px;
     height: 40px;
     border: 1px solid #94a3b8;
     border-radius: 4px;
     background-color: #ffffff;
-    color: #0f172a;
+    color: #94a3b8;
     font-size: 16px;
     font-weight: 500;
     padding: 8px 16px;
     cursor: pointer;
 }
+.item-buttons button.confirm {
+    width: 80px;
+    height: 40px;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    background-color: #0f172a;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+.item-buttons button.confirm:hover {
+    background-color: #1e293b;
+}
 
 .item-buttons button.edit:hover,
-.item-buttons button.confirm:hover {
+.item-buttons button.cancel:hover {
     background-color: #94a3b8;
     color: #ffffff;
 }
 
 /* 삭제 / 취소 버튼 (red-outline) */
-.item-buttons button.delete,
-.item-buttons button.cancel {
+.item-buttons button.delete {
     width: 80px;
     height: 40px;
     border: 1px solid #ef4444;
@@ -78,8 +92,7 @@
     cursor: pointer;
 }
 
-.item-buttons button.delete:hover,
-.item-buttons button.cancel:hover {
+.item-buttons button.delete:hover {
     background-color: #ef4444;
     color: #ffffff;
 }
