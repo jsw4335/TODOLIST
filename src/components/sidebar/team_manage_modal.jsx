@@ -12,7 +12,7 @@ export default function TeamManageModal({ teamId, onClose }) {
     const [inviteId, setInviteId] = useState("");
 
     const loadMembers = async () => {
-        if (!teamId) return; // teamId가 없으면 API 호출 안 함
+        if (!teamId) return;
         try {
             const data = await getTeamMembers(teamId);
             setMembers(data);
@@ -50,11 +50,9 @@ export default function TeamManageModal({ teamId, onClose }) {
         if (res.deleteSuccess) loadMembers();
     };
 
-    // 기존 전체 구조를 modal-overlay/modal-box 구조로 감쌈
     return (
         <Modal show onClose={onClose} title="팀원 초대하기">
             <div className="manage-modal-content">
-                {/* 초대 입력 영역 */}
                 <div className="invite-row">
                     <input
                         type="text"
@@ -67,17 +65,16 @@ export default function TeamManageModal({ teamId, onClose }) {
                     </button>
                 </div>
 
-                {/* 팀원 목록 */}
                 <div className="member-list">
                     {members.length === 0 ? (
                         <p>아직 팀원이 없습니다.</p>
                     ) : (
                         members.map((m) => (
-                            <div key={m.userId} className="member-item">
-                                <span>{m.loginId}</span>
+                            <div key={m.user_id} className="member-item">
+                                <span>{m.login_id}</span>
                                 <button
                                     className="delete-btn"
-                                    onClick={() => handleDelete(m.userId)}
+                                    onClick={() => handleDelete(m.user_id)}
                                 >
                                     <FaTrashAlt className="trash-icon" />
                                 </button>
@@ -86,7 +83,6 @@ export default function TeamManageModal({ teamId, onClose }) {
                     )}
                 </div>
 
-                {/* 닫기 버튼 */}
                 <div className="footer-right">
                     <button className="btn-secondary" onClick={onClose}>
                         닫기
