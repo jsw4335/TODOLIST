@@ -25,9 +25,9 @@
 
 /* 수정 중일 때 입력창 */
 .edit-input {
-    flex: 1;
+    width: 750px;
     height: 40px;
-    border: 1px solid #d4d4d8;
+    border: 1px solid #0f172a;
     border-radius: 4px;
     padding: 8px 16px;
     font-size: 16px;
@@ -50,7 +50,7 @@
     border: 1px solid #94a3b8;
     border-radius: 4px;
     background-color: #ffffff;
-    color: #94a3b8;
+    color: #0f172a;
     font-size: 16px;
     font-weight: 500;
     padding: 8px 16px;

@@ -10,8 +10,6 @@ export default function TodoItem({ todo, onDelete, onUpdate }) {
         setEditing(false);
     };
 
-    console.log("🧩 todo 객체:", todo);
-
     return (
         <div className={`todo-item ${editing ? "editing" : ""}`}>
             {!editing && (

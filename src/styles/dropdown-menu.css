@@ -9,6 +9,7 @@
     transform: translateY(6px);
     min-width: 150px;
     background: #fff;
+    padding: 0px 0px;
     border: 1px solid #000;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -18,7 +19,6 @@
     z-index: 100;
 }
 
-/* 드롭다운 내부 항목 */
 .dropdown-menu p {
     margin: 0;
     padding: 8px 16px;
@@ -27,14 +27,20 @@
     font: 500 15px/100% "Pretendard", sans-serif;
     color: #0f172a;
     cursor: pointer;
-    transition: background 0.15s;
 }
 
 .dropdown-menu p:hover {
     background: #f3f4f6;
+    box-sizing: border-box;
+    padding: 8px 16px;
 }
 
-/*로그아웃 전용 메뉴 (위로 뜨게 하기) */
+.more-wrapper:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
 .logout-menu {
     top: auto;
     bottom: 40px;

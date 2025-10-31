@@ -5,6 +5,7 @@ import {
     deleteTeamMember,
 } from "../../api/todo_api";
 import Modal from "./modal";
+import "../../styles/team_manage_modal.css";
 import { FaTrashAlt } from "react-icons/fa";
 
 export default function TeamManageModal({ teamId, onClose }) {
