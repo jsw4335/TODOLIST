@@ -11,7 +11,7 @@ import SignupPage from "./pages/signup_page";
 
 function App() {
     const [userId, setUserId] = useState(
-        localStorage.getItem("userId") || null // 새로고침에도 유지
+        localStorage.getItem("userId") || null
     );
     return (
         <Router>
@@ -23,7 +23,6 @@ function App() {
                 />
                 <Route path="/signup" element={<SignupPage />} />
                 <Route path="/todo" element={<TodoPage userId={userId} />} />
-                {/* 나머지 추후에 추가예정 */}
             </Routes>
         </Router>
     );

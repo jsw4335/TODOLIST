@@ -1,11 +1,10 @@
 import { useState } from "react";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/login_page.css"; // 스타일 파일 따로 만들기
 import { loginUser } from "../api/todo_api";
 
 export default function LoginPage() {
-    const [login_id, setUserId] = useState("");
+    const [loginId, setLogInId] = useState("");
     const [password, setPassword] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
 
@@ -13,30 +12,23 @@ export default function LoginPage() {
 
     // 로그인 버튼 클릭 시 실행
     const handleLogin = async () => {
-        if (!login_id || !password) {
+        if (!loginId || !password) {
             setErrorMsg("아이디와 비밀번호를 확인해주세요");
             return;
         }
 
         try {
-            const res = await loginUser(login_id, password);
+            const res = await loginUser(loginId, password);
             console.log("로그인 응답:", res);
 
             if (res.loginSuccess && res.pwSuccess) {
                 alert(`${res.message}`);
-                localStorage.setItem("userId", res.user_id); // 로컬에 저장
-                localStorage.setItem("loginId", res.login_id); // 로그아웃 부분에 회원 정보 보여주기 위해사용
-                localStorage.setItem("token", res.token); // 토큰 저장
-                localStorage.setItem("lastViewPage", res.lastViewPage); //없으면 개인페이지로 감
-                navigate("/todo", { state: { userId: res.user_id } });
-            } //여기에 해당하지 않으면 400에러가 발생해서 바로catch로 이동함
-            // } else {
-            //     setErrorMsg("아이디와 비밀번호를 확인해주세요");
-            //     // alert(
-            //     //     // DB에 없는 아이디를 입력할 경우에는 이 코드가 실행 되지 않음
-            //     //     res.message || "아이디와 비밀번호를 확인해주세요."
-            //     // );
-            // }
+                localStorage.setItem("userId", res.userId);
+                localStorage.setItem("loginId", res.loginId);
+                localStorage.setItem("token", res.token);
+                localStorage.setItem("lastViewPage", res.lastViewPage);
+                navigate("/todo", { state: { userId: res.userId } });
+            }
         } catch (err) {
             // 400에러가 발생할 경우에는 프론트의 try 부분을 무조건 건너뛴다
             console.error("catch 문 안으로 진입:", err);
@@ -59,9 +51,9 @@ export default function LoginPage() {
             <input
                 type="text"
                 placeholder="아이디를 입력해주세요."
-                value={login_id}
+                value={loginId}
                 onChange={(e) => {
-                    setUserId(e.target.value);
+                    setLogInId(e.target.value);
                     if (errorMsg) setErrorMsg("");
                 }}
                 className={`login-input ${errorMsg ? "input-error" : ""}`} // 에러 시 테두리 빨강

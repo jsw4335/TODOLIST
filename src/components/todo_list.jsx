@@ -1,20 +1,21 @@
 import TodoItem from "./todo_item";
 import "../styles/todo_list.css";
-export default function TodoList({ todos, onDelete, onUpdate, onToggle }) {
+export default function TodoList({ todos, onDelete, onUpdate }) {
     const todoList = todos.filter((t) => !t.completed);
     const doneList = todos.filter((t) => t.completed);
+
+    console.log("📦 todos:", todos);
 
     return (
         <div className="todo-list">
             <section>
                 <h3>TO DO</h3>
                 {todoList.length ? (
-                    todoList.map((t) => (
+                    todoList.map((todo) => (
                         <TodoItem
-                            key={t.id}
-                            todo={t}
+                            key={todo.id}
+                            todo={todo}
                             onDelete={onDelete}
-                            onToggle={onToggle}
                             onUpdate={onUpdate}
                         />
                     ))
@@ -26,12 +27,11 @@ export default function TodoList({ todos, onDelete, onUpdate, onToggle }) {
             <section>
                 <h3>DONE</h3>
                 {doneList.length ? (
-                    doneList.map((t) => (
+                    doneList.map((todo) => (
                         <TodoItem
-                            key={t.id}
-                            todo={t}
+                            key={todo.id}
+                            todo={todo}
                             onDelete={onDelete}
-                            onToggle={onToggle}
                             onUpdate={onUpdate}
                         />
                     ))

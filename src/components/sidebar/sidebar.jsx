@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getTeams, logoutUser } from "../api/todo_api";
-import TeamCreateModal from "./team_create_modal"; // 팀 생성용
-import TeamDeleteModal from "./team_delete_modal"; // 팀 삭제용
-import TeamManageModal from "./team_manage_modal"; // 팀원 관리용
+import { getTeams, logoutUser } from "../../api/todo_api";
+import TeamCreateModal from "./team_create_modal";
+import TeamDeleteModal from "./team_delete_modal";
+import TeamManageModal from "./team_manage_modal";
 
-import "../styles/sidebar.css";
+import DropDownMenu from "./drop_down_menu";
+import "../../styles/dropdown-menu.css";
+import "../../styles/sidebar.css";
 
 export default function Sidebar({ onSelect, setTeamId }) {
     const [teams, setTeams] = useState([]);
@@ -23,7 +25,7 @@ export default function Sidebar({ onSelect, setTeamId }) {
 
     const fetchTeams = async () => {
         try {
-            const res = await getTeams(userId);
+            const res = await getTeams();
             setTeams(res);
         } catch (err) {
             console.error("팀 목록 불러오기 실패:", err);
@@ -106,22 +108,22 @@ export default function Sidebar({ onSelect, setTeamId }) {
 
                                 {/* 드롭다운 메뉴 */}
                                 {showMenuId === team.team_id && (
-                                    <div className="dropdown-menu">
-                                        <p
-                                            onClick={() =>
-                                                handleInvite(team.team_id)
-                                            }
-                                        >
-                                            초대하기
-                                        </p>
-                                        <p
-                                            onClick={() =>
-                                                handleDeleteClick(team.team_id)
-                                            }
-                                        >
-                                            삭제하기
-                                        </p>
-                                    </div>
+                                    <DropDownMenu
+                                        items={[
+                                            {
+                                                label: "초대하기",
+                                                onClick: () =>
+                                                    handleInvite(team.team_id),
+                                            },
+                                            {
+                                                label: "삭제하기",
+                                                onClick: () =>
+                                                    handleDeleteClick(
+                                                        team.team_id
+                                                    ),
+                                            },
+                                        ]}
+                                    />
                                 )}
                             </div>
                         </div>
@@ -147,9 +149,12 @@ export default function Sidebar({ onSelect, setTeamId }) {
                         ...
                     </button>
                     {showLogout && (
-                        <button className="logout-btn" onClick={handleLogout}>
-                            로그아웃
-                        </button>
+                        <DropDownMenu
+                            items={[
+                                { label: "로그아웃", onClick: handleLogout },
+                            ]}
+                            className="logout-menu"
+                        />
                     )}
                 </div>
             </div>

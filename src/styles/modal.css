@@ -1,0 +1,96 @@
+/* 전체 배경 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* 모달 박스 */
+.modal-box {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 24px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 제목 */
+.modal-title {
+    font-family: "Pretendard", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 12px;
+    color: #0f172a;
+}
+
+/* 본문 내용 */
+.modal-content {
+    font-family: "Pretendard", sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #0f172a;
+}
+
+/* 하단 버튼 영역 */
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+/* 버튼 공통 스타일 */
+.modal-footer button {
+    font-family: "Pretendard", sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    height: 40px;
+    width: 90px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+/* 기본 버튼 스타일 */
+.btn-primary {
+    background-color: #0f172a;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-secondary {
+    background-color: #ffffff;
+    color: #0f172a;
+    border: 1px solid #0f172a;
+}
+
+.modal-box input[type="text"] {
+    width: 100%;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    border: 1px solid #d4d4d8;
+    border-radius: 4px;
+    font-size: 15px;
+    color: #0f172a;
+}
+
+.delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.trash-icon {
+    color: #ef4444;
+    font-size: 18px;
+    transition: color 0.2s;
+}

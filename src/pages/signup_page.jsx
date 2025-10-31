@@ -1,18 +1,17 @@
 import { useState } from "react";
-//import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/signup_page.css";
 import { joinUser } from "../api/todo_api";
 
 export default function SignupPage() {
-    const [login_id, setLoginId] = useState("");
+    const [loginId, setLoginId] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState(""); // 추가
     const [error, setError] = useState(""); // 추가 (에러 메시지)
     const navigate = useNavigate();
 
     const handleSignup = async () => {
-        if (!login_id || !password) {
+        if (!loginId || !password) {
             alert("아이디와 비밀번호를 모두 입력해주세요.");
             return;
         }
@@ -22,7 +21,7 @@ export default function SignupPage() {
         }
 
         try {
-            const res = await joinUser(login_id, password);
+            const res = await joinUser(loginId, password);
             console.log("회원가입 응답:", res);
             if (res.JoinSuccess) {
                 alert(res.message);
@@ -42,7 +41,7 @@ export default function SignupPage() {
             <input
                 type="text"
                 placeholder="아이디를 입력해주세요."
-                value={login_id}
+                value={loginId}
                 onChange={(e) => setLoginId(e.target.value)}
                 className="signup-input"
             />

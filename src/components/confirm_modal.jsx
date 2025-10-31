@@ -1,19 +1,21 @@
-import "../styles/confirm_modal.css";
+import Modal from "./sidebar/modal";
 
 export default function ConfirmModal({ onConfirm, onCancel }) {
     return (
-        <div className="modal-overlay">
-            <div className="modal-container">
-                <p className="modal-text">정말 삭제하시겠습니까?</p>
-                <div className="modal-buttons">
-                    <button className="confirm-btn" onClick={onConfirm}>
+        <Modal
+            show
+            onClose={onCancel}
+            title="정말 삭제 하시겠습니까?"
+            footer={
+                <>
+                    <button className="btn-primary" onClick={onConfirm}>
                         확인
                     </button>
-                    <button className="cancel-btn" onClick={onCancel}>
+                    <button className="btn-secondary" onClick={onCancel}>
                         취소
                     </button>
-                </div>
-            </div>
-        </div>
+                </>
+            }
+        ></Modal>
     );
 }

@@ -1,13 +1,9 @@
 import axios from "axios";
-// 공통 기본 주소
-// 공통 axios 인스턴스 생성
-const api = axios.create({
-    baseURL: process.env.REACT_APP_API_BASE_URL, // 서버 주소
-});
-// console.log("API BASE URL:", process.env.REACT_APP_API_BASE_URL);
 
-// 모든 요청에 토큰 자동 추가
-// 요청이 서버로 보내지기 직전에 실행되는 함수
+const api = axios.create({
+    baseURL: process.env.REACT_APP_API_BASE_URL,
+});
+
 api.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token"); //로그인 성공 시 localStorage에 저장해둔 JWT토큰을 가져온다
@@ -44,81 +40,82 @@ api.interceptors.request.use(
 // );
 
 // 회원가입 api
-export const joinUser = async (login_id, password) => {
-    const res = await api.post(`/user/join`, {
-        login_id,
-        password,
-    });
+export const joinUser = async (loginId, password) => {
+    const res = await api.post("/users", { loginId, password });
     return res.data;
 };
-
 // 로그인 API
-export const loginUser = async (login_id, password) => {
-    const res = await api.post(`/user/login`, {
-        login_id,
-        password,
-    });
+export const loginUser = async (loginId, password) => {
+    const res = await api.post("/users/login", { loginId, password });
     return res.data;
 };
 
 // 로그아웃 API
 export const logoutUser = async (userId, lastViewPage) => {
-    console.log(lastViewPage);
-    const res = await api.post(`/user/logout`, {
-        userId,
-        lastViewPage,
-    });
-    return res.data;
-};
-
-//할 일 목록 조회(모든  api가 작동할때 전부다 적용이 되어야 함)
-export const getTodos = async (userId) => {
-    const res = await api.get(`/users/${userId}/todos`);
-
-    // DB 필드명(todoContent, todoCompleted)을
-    // 프론트 표준(title, completed)으로 변환
-    return res.data.map((t) => ({
-        id: t.id,
-        title: t.todoContent,
-        completed: !!t.todoCompleted, // 0 → false, 1 → true
-    }));
-};
-
-//할 일 등록
-export const addTodo = async (userId, todoContent) => {
-    const res = await api.post(`/users/${userId}/todos`, {
-        todoContent,
-    });
-    return res.data;
-};
-//할 일 수정(put)
-export const updateTodo = async (userId, id, todoContent) => {
-    const res = await api.put(`/users/${userId}/todos/${id}`, {
-        todoContent,
-    });
-    return res.data;
-};
-//할 일 삭제(delete)
-export const deleteTodo = async (userId, id) => {
-    const res = await api.delete(`/users/${userId}/todos/${id}`);
-    return res.data;
-};
-//완료/미완료 토글 PATCH
-export const toggleComplete = async (userId, id) => {
-    const res = await api.patch(`/users/${userId}/todos/${id}/complete`);
+    const res = await api.post("/users/logout", { userId, lastViewPage });
     return res.data;
 };
 
 // 팀 목록 조회
-export const getTeams = async (userId) => {
-    const res = await api.get(`/users/${userId}/team`);
+export const getTeams = async () => {
+    const res = await api.get(`/users/team`);
+    return res.data;
+};
+
+//할 일 목록 조회(모든  api가 작동할때 전부다 적용이 되어야 함)
+export const getTodos = async (teamId = 0) => {
+    const res = await api.get(`/todos`, {
+        params: teamId ? { teamId } : {},
+    });
+    return res.data.map((t) => ({
+        id: t.id,
+        title: t.todoContent,
+        completed: t.todoCompleted === "COMPLETED",
+    }));
+};
+
+//할 일 등록
+export const addTodo = async (todoContent, teamId = 0) => {
+    const res = await api.post(
+        `/todos`,
+        { todoContent },
+        {
+            params: teamId ? { teamId } : {},
+        }
+    );
+    return res.data;
+};
+//할 일 수정(put)
+export const updateTodo = async (
+    todoId,
+    todoContent,
+    isCompleted,
+    teamId = 0
+) => {
+    const res = await api.put(
+        `/todos/${todoId}`,
+        {
+            todoContent,
+            selectedTodoCompleted: isCompleted ? "COMPLETED" : "PENDING",
+        },
+        {
+            params: teamId ? { teamId } : {},
+        }
+    );
+    return res.data;
+};
+//할 일 삭제(delete)
+export const deleteTodo = async (todoId, teamId = 0) => {
+    const res = await api.delete(`/todos/${todoId}`, {
+        params: teamId ? { teamId } : {},
+    });
     return res.data;
 };
 
 // 팀 생성 API
 export const createTeam = async (team_name) => {
     const userId = localStorage.getItem("userId"); // ✅ 로그인한 사용자 ID 불러오기
-    const res = await api.post(`/team/create`, { team_name, userId });
+    const res = await api.post(`/teams`, { teamName: team_name, userId });
     return res.data;
 };
 
@@ -157,27 +154,21 @@ export const deleteTeamTodo = async (teamId, id) => {
     return res.data;
 };
 
-// 팀 할 일 완료 토글
-export const toggleTeamTodo = async (teamId, id) => {
-    const res = await api.patch(`/teams/${teamId}/todos/${id}/complete`);
-    return res.data;
-};
-
 // 팀원 목록 불러오기
 export const getTeamMembers = async (teamId) => {
-    const res = await api.get(`/team/${teamId}`);
+    const res = await api.get(`/teams/${teamId}`);
     return res.data;
 };
 
 // 팀원 초대
 export const inviteTeamMember = async (teamId, loginId) => {
-    const res = await api.post(`/team/${teamId}/invite`, { loginId });
+    const res = await api.post(`/teams/${teamId}/members`, { loginId });
     return res.data;
 };
 
 // 팀원 삭제
 export const deleteTeamMember = async (teamId, userId) => {
-    const res = await api.delete(`/team/${teamId}/delete`, {
+    const res = await api.delete(`/teams/${teamId}/members`, {
         data: { userId },
     });
     return res.data;
